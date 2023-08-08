@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @kabbilkarthi         
-- 👀 I’m interested in learning_about_Programming_Concepts
-- 🌱 I’m currently learning scripting and the use of Git
+- 👀 I’m interested in learning Ansible, Git, Python, Bash
+- 🌱 I’m currently learning Ansible, scripting and the use of Git
 - 📫 How to reach me?->Email: g.i.kabbil@gmail.com
 
 <!---
