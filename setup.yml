@@ -1,5 +1,5 @@
 ---
-- name: Gathering the server main details
+- name: Gathering the server details
   hosts: all
   serial: 1
 
