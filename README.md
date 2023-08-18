@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @kabbilkarthi         
-- 👀 I’m interested in learning Ansible, Git, Python, Bash
-- 🌱 I’m currently learning Ansible, and scripting
+- 👀 I’m interested in learning DevOps tools and methodologies, Containerization, and Orchestration
+- 🌱 I’m currently learning CI/CD tools --> Ansible, ARM Templates, scripting using Bash & Python 
 - 📫 How to reach me?->Email: g.i.kabbil@gmail.com
 
 <!---
