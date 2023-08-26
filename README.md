@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @kabbilkarthi         
 - 👀 I’m interested in learning DevOps, Containerization, and Orchestration tools
-- 🌱 I’m currently learning CI/CD tools --> Ansible, ARM Templates, scripting using Bash & Python 
+- 🌱 I’m currently learning CI/CD tools --> Ansible, ARM Templates, Docker, Kubernetes, scripting using Bash & Python 
 - 📫 How to reach me?->Email: g.i.kabbil@gmail.com
 
 <!---
