@@ -1,5 +1,5 @@
 - 👋 Hi, I’m kabbil         
-- 👀 I’m learning DevOps, Containerization, and Orchestration tools
+- 👀 I’m learning DevOps tools --> Docker, and K8s.
 - 📫 How to reach me ? --> Email: g.i.kabbil@gmail.com
 
 <!---
