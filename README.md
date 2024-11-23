@@ -1,5 +1,4 @@
-- 👋 Hi, I’m kabbil         
-- 👀 I’m learning DevOps tools --> Docker, and K8s.
+- 👋 Hi, I’m kabbil
 - 📫 How to reach me ? --> Email: g.i.kabbil@gmail.com
 
 <!---
