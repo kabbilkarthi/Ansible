@@ -1,0 +1,17 @@
+---
+- name: Gathering the server details
+  hosts: all
+  serial: 1
+
+  tasks:
+
+   - name: Resources details
+     debug: 
+        msg: |
+         OS {{ ansible_distribution }} {{ ansible_system }} || Kernel {{ansible_kernel }} || Memory {{ansible_memtotal_mb}} || CPU {{ansible_processor_vcpus}} || Vendor {{ansible_system_vendor}}
+
+   - name: Collecting Network addresses in each nodes
+     debug: 
+        msg: |
+         Interface {{ ansible_default_ipv4.interface }} || Gateway  {{ ansible_default_ipv4.gateway }} || Netmask  {{ ansible_default_ipv4.netmask }} || Mac Address {{ansible_default_ipv4.macaddress}}
+
