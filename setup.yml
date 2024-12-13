@@ -14,4 +14,3 @@
      debug: 
         msg: |
          Interface {{ ansible_default_ipv4.interface }} || Gateway  {{ ansible_default_ipv4.gateway }} || Netmask  {{ ansible_default_ipv4.netmask }} || Mac Address {{ansible_default_ipv4.macaddress}}
-
