@@ -8,7 +8,7 @@
   gather_facts: false
   vars:
     ansible_user: kabbil
-    user: kabbil
+    user: karthi
 
   tasks:
     - name: Fail if limit_user is empty
@@ -51,7 +51,7 @@
     - name: Set max process hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} ANSIBLE MANAGED NPROC"
+        marker: "# {mark} ANSIBLE MANAGED NPROC {{ user }}"
         block: |
           {{ user }} hard nproc  320932
           {{ user }} soft nproc  320932
@@ -61,7 +61,7 @@
     - name: Set max descriptors hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} ANSIBLE MANAGED NOFILE"
+        marker: "# {mark} ANSIBLE MANAGED NOFILE {{ user }}"
         block: |
           {{ user }} hard nofile 1048576
           {{ user }} soft nofile 1048576
@@ -107,7 +107,7 @@
     - name: Remove max process hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} ANSIBLE MANAGED NPROC"
+        marker: "# {mark} ANSIBLE MANAGED NPROC {{ user }}"
         state: absent
       tags:
         - remove_nproc
@@ -115,7 +115,7 @@
     - name: Remove max descriptors hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} ANSIBLE MANAGED NOFILE"
+        marker: "# {mark} ANSIBLE MANAGED NOFILE {{ user }}"
         state: absent
       tags:
         - remove_nofile
