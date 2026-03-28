@@ -7,55 +7,64 @@
   become: yes
   gather_facts: false
   vars:
-    ansible_user: 
-    user: 
+    ansible_user: kabbil
+    user: kabbil
 
   tasks:
+    - name: Fail if limit_user is empty
+      fail:
+        msg: "user variable is required and cannot be empty"
+      when: user is not defined
+      tags:
+        - always
+        - add_nproc
+        - add_nofile
+
     - name: Existing limits value 
       command: tail -n 5 /etc/security/limits.conf
       register: ans
+      changed_when: false
       tags:
-        - existing
-        
+        - existing        
     
     - name: Existing sysctl value 
       command: cat /etc/sysctl.conf
       register: out
+      changed_when: false
       tags:
         - existing
       
-
     - name: Debug Existing limits value 
       debug:
         var: ans.stdout_lines
+      changed_when: false
       tags:
-        - existing
-      
+        - existing      
     
     - name: Debug Existing sysctl value
       debug:
         var: out.stdout_lines
+      changed_when: false
       tags:
-        - existing
-      
+        - existing     
 
     - name: Set max process hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} nproc"
+        marker: "# {mark} ANSIBLE MANAGED NPROC"
         block: |
-          {{ user }} hard nproc 2097512
-          {{ user }} soft nproc 2097512
+          {{ user }} hard nproc  320932
+          {{ user }} soft nproc  320932
       tags:
         - add_nproc
 
     - name: Set max descriptors hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} nofile"
+        marker: "# {mark} ANSIBLE MANAGED NOFILE"
         block: |
-          {{ user }} hard nofile 65536
-          {{ user }} soft nofile 65536
+          {{ user }} hard nofile 1048576
+          {{ user }} soft nofile 1048576
       tags:
         - add_nofile
 
@@ -71,19 +80,34 @@
     - name: Set threads-max value
       sysctl:
         name: kernel.threads-max
-        value: 2000000
+        value: 641864
         state: present
         sysctl_set: yes
       tags:
         - add_threads-max
+        
+    - name: Set vm.max_map_count value
+      sysctl:
+        name: vm.max_map_count
+        value: 2048000
+        state: present
+        sysctl_set: yes
+      tags:
+        - add_vm_max_map_count
 
+    - name: Set file-max value
+      sysctl:
+        name: fs.file-max
+        value: 2000000
+        state: present
+        sysctl_set: yes
+      tags:
+        - add_file_max
+ 
     - name: Remove max process hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} nproc"
-        block: |
-          {{ user }} hard nproc 2097512
-          {{ user }} soft nproc 2097512
+        marker: "# {mark} ANSIBLE MANAGED NPROC"
         state: absent
       tags:
         - remove_nproc
@@ -91,10 +115,7 @@
     - name: Remove max descriptors hard/soft limit
       blockinfile:
         path: /etc/security/limits.conf
-        marker: "# {mark} nofile"
-        block: |
-          {{ user }} hard nofile 65536
-          {{ user }} soft nofile 65536
+        marker: "# {mark} ANSIBLE MANAGED NOFILE"
         state: absent
       tags:
         - remove_nofile
@@ -102,23 +123,42 @@
     - name: Remove pid_max value
       sysctl:
         name: kernel.pid_max
-        value: 2000000
         state: absent
-        sysctl_set: yes
       tags:
-        - remove_pid_max
+        - remove_pid_max   
 
     - name: Remove threads-max value
       sysctl:
         name: kernel.threads-max
-        value: 2000000
         state: absent
-        sysctl_set: yes
       tags:
         - remove_threads-max
     
+    - name: Remove vm.max_map_count value
+      sysctl:
+        name: vm.max_map_count
+        state: absent
+      tags:
+        - remove_vm_max_map_count 
+
+    - name: Remove file-max value
+      sysctl:
+        name: fs.file-max
+        state: absent
+      tags:
+        - remove_file_max
+
+    - name: Reload all sysctl settings after cleanup
+      command: sysctl --system
+      changed_when: true
+      tags:
+        - remove_pid_max
+        - remove_threads-max
+        - remove_vm_max_map_count
+        - remove_file_max
+
     - name: updated limits value 
-      command: tail -n 5 /etc/security/limits.conf
+      command: tail -n 10 /etc/security/limits.conf
       register: ans
       tags:
         - updated
