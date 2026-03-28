@@ -8,7 +8,7 @@
   gather_facts: false
   vars:
     ansible_user: kabbil
-    user: karthi
+    #user: 
 
   tasks:
     - name: Fail if limit_user is empty
@@ -159,12 +159,14 @@
 
     - name: updated limits value 
       command: tail -n 10 /etc/security/limits.conf
+      changed_when: false
       register: ans
       tags:
         - updated
     
     - name: updated sysctl value 
       command: cat /etc/sysctl.conf
+      changed_when: false
       register: out
       tags:
         - updated
@@ -172,12 +174,14 @@
     - name: Debug updated limits value 
       debug:
         var: ans.stdout_lines
+      changed_when: false
       tags:
         - updated
     
     - name: Debug updated sysctl value
       debug:
         var: out.stdout_lines
+      changed_when: false
       tags:
         - updated
     
